@@ -1,12 +1,12 @@
 // JavaScript
 // console.log('Hello world!');
 
-import {LeafletMap, TileLayer, Marker, Popup, Icon} from 'leaflet';
+import {LeafletMap, TileLayer, Marker, Popup, Icon, Circle, Polygon} from 'leaflet';
 
 const map = new LeafletMap('map').setView([35.63312418116784, 139.8803897193559], 17);
 
-new TileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	maxZoom: 19,
+new TileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
+	maxZoom: 16,
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
@@ -57,3 +57,29 @@ const whiteIcon = new circleIcon({ iconUrl: 'images/ico.png' }),
 
 new Marker([35.626583, 139.887242], { icon: whiteIcon }).addTo(map).bindPopup('東京ディズニーシー');
 new Marker([35.636437, 139.878375], { icon: pinkIcon }).addTo(map).bindPopup('東京ディズニーランドホテル');
+
+const circle = new Circle([35.623997745484566, 139.8871791848533], {
+  color: 'red', //円の輪郭線の色
+  fillColor: '#f03', //円の塗りつぶしの色
+  fillOpacity: 0.3, //塗りつぶしの不透明度
+  radius: 100//半径、メートルで指定
+}).addTo(map);
+
+circle.bindPopup("半径0.1kmの範囲");
+
+// 多角形の表示
+const polygon = new Polygon([
+  [35.632151, 139.872909],
+  [35.631916, 139.8747],
+  [35.628332, 139.875011],
+  [35.62664, 139.879668],
+  [35.62466, 139.879206],
+  [35.626099, 139.873059]
+], {
+  color: 'orange',
+  fillColor: 'rgb(255, 179, 0)',
+  fillOpacity: 0.3
+}).addTo(map);
+
+polygon.bindPopup("ホテルエリア");
+
